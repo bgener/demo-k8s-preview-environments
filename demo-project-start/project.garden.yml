@@ -1,0 +1,20 @@
+kind: Project
+name: demo-project-start
+environments:
+  - name: preview
+    defaultNamespace: preview-${local.env.PR_NUMBER || local.username}
+    variables:
+        hostname: ${local.env.PR_NUMBER || local.username}.preview.mydomain.com
+providers:
+  - name: kubernetes
+    context: gke_starry-minutia-376412_europe-north1-a_demo-preview-environments
+    environments: [preview]
+    namespace: ${environment.namespace}
+    defaultHostname: ${var.hostname}
+    deploymentRegistry:
+      hostname: eu.gcr.io
+      namespace: starry-minutia-376412   # <- set this to the project ID of the target cluster
+    imagePullSecrets:
+      - name: gcr-config
+        namespace: default
+defaultEnvironment: preview
