@@ -60,13 +60,14 @@ jobs:
         curl -sL https://get.garden.io/install.sh | bash
         export PATH=$PATH:$HOME/.garden/bin
         chmod u+x $HOME/.garden
-        garden --version
 
     # Deploy the preview environment to the GKE cluster
     - name: Deploy
       run: |-
+        garden --version
+
         cd ./demo-project-start
-        garden --env=preview plugins kubernetes cluster-init
+        ./garden --env=preview plugins kubernetes cluster-init
         garden deploy
         garden get status
 
