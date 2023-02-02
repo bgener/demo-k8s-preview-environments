@@ -68,7 +68,7 @@ jobs:
         garden --version
 
         cd ./demo-project-start
-        ./garden --env=preview plugins kubernetes cluster-init
+        garden --env=preview plugins kubernetes cluster-init
         garden deploy
         garden get status
 
