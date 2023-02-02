@@ -10,7 +10,7 @@
 #
 # For more support on how to run the workflow, please visit https://github.com/google-github-actions/setup-gcloud/tree/master/example-workflows/gke-kustomize
 
-name: Build and Deploy to GKE
+name: Kubernetes preview environments
 
 on:
   pull_request:
@@ -27,7 +27,7 @@ env:
 
 jobs:
   deploy-preview-environment:
-    name: Deploy to GKE
+    name: Deploy to Preview
     runs-on: ubuntu-latest
 
     permissions:
@@ -58,6 +58,7 @@ jobs:
     - name: Set up Garden
       run: |-
         curl -sL https://get.garden.io/install.sh | bash
+        export PATH=$PATH:$HOME/.garden/bin
 
     # Deploy the preview environment to the GKE cluster
     - name: Deploy
