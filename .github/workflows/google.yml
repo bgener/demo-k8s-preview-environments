@@ -58,7 +58,6 @@ jobs:
     - name: Set up Garden
       run: |-
         curl -sL https://get.garden.io/install.sh | bash
-        chmod u+x ./garden
 
     # Deploy the preview environment to the GKE cluster
     - name: Deploy
