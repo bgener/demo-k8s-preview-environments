@@ -60,6 +60,7 @@ jobs:
         curl -sL https://get.garden.io/install.sh | bash
         export PATH=$PATH:$HOME/.garden/bin
         chmod u+x $HOME/.garden
+        echo "PATH=$HOME/.garden/bin:$PATH" >> $GITHUB_ENV
 
     # Deploy the preview environment to the GKE cluster
     - name: Deploy
