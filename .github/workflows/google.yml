@@ -53,7 +53,6 @@ jobs:
       with:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
-          .
 
     # Install Garden CLI tool
     - name: Set up Garden
