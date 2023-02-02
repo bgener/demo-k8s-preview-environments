@@ -2,9 +2,9 @@ kind: Project
 name: demo-project-start
 environments:
   - name: preview
-    defaultNamespace: preview-${local.env.PR_NUMBER || local.username}
+    defaultNamespace: ${local.username}-${local.env.PR_NUMBER}-preview
     variables:
-        hostname: ${local.env.PR_NUMBER || local.username}.preview.mydomain.com
+        hostname: ${var.previewHostname}
 providers:
   - name: kubernetes
     context: gke_starry-minutia-376412_europe-north1-a_demo-preview-environments
@@ -17,4 +17,5 @@ providers:
     imagePullSecrets:
       - name: gcr-config
         namespace: default
-defaultEnvironment: preview
+variables:
+   previewHostname: ${local.env.PR_NUMBER}.${local.env.INGRESS_IP}
