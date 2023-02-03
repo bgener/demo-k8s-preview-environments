@@ -2,7 +2,7 @@ kind: Project
 name: demo-project-start
 environments:
   - name: preview
-    defaultNamespace: '${local.username}-${local.env.PR_NUMBER}-preview'
+    defaultNamespace: '${local.env.USER}-${local.env.PR_NUMBER}-preview'
     variables:
       hostname: '${var.previewHostname}'
 providers:

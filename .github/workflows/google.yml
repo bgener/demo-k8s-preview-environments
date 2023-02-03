@@ -25,8 +25,7 @@ env:
   GKE_CLUSTER: demo-preview-environments    # TODO: update to cluster name
   GKE_ZONE: europe-north1-a   # TODO: update to cluster zone
   PR_NUMBER: pr-${{ github.event.number }}
-  INGRESS_IP: pr-${{ secrets.INGRESS_IP }}
-
+  INGRESS_IP: ${{ secrets.INGRESS_IP }}
 
 jobs:
   deploy-preview-environment:
@@ -57,6 +56,17 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
+    # Docker login
+    - uses: 'docker/login-action@v1'
+      with:
+        registry: 'gcr.io' # or REGION-docker.pkg.dev
+        username: 'oauth2accesstoken'
+        password: '${{ steps.auth.outputs.access_token }}'
+
+    # Run "docker login" directly to Container Registry.
+    - run: |-
+        echo '${{ steps.auth.outputs.access_token }}' | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+
     # Install Garden CLI tool
     - name: Set up Garden
       run: |-
@@ -72,7 +82,6 @@ jobs:
 
         echo ${{ env.INGRESS_IP }}
         echo ${{ secrets.INGRESS_IP }}
-        echo $INGRESS_IP
 
         garden --version
         garden --env=preview plugins kubernetes cluster-init
