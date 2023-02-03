@@ -62,13 +62,13 @@ jobs:
         export PATH=$PATH:$HOME/.garden/bin
         chmod u+x $HOME/.garden
         echo "PATH=$HOME/.garden/bin:$PATH" >> $GITHUB_ENV
-        echo "${{ vars.INGRESS_IP }}" >> $INGRESS_IP
 
     # Deploy the preview environment to the GKE cluster
     - name: Deploy
       run: |-
         cd ./demo-project-start
-        echo $GITHUB_HEAD_REF
+        echo $INGRESS_IP
+        echo $PR_NUMBER
 
         garden --version
         garden --env=preview plugins kubernetes cluster-init
