@@ -1,4 +1,4 @@
-kind: Project
+﻿kind: Project
 name: demo-project-start
 environments:
   - name: preview
