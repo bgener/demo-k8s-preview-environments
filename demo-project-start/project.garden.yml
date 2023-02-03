@@ -7,14 +7,14 @@ environments:
       hostname: '${var.previewHostname}'
 providers:
   - name: kubernetes
-    context: gke_starry-minutia-376412_europe-north1-a_demo-preview-environments
+    context: gke_${local.env.PROJECT_ID}_${local.env.GKE_ZONE}_${local.env.GKE_CLUSTER}
     environments:
       - preview
     namespace: '${environment.namespace}'
     defaultHostname: '${var.hostname}'
     deploymentRegistry:
       hostname: eu.gcr.io
-      namespace: starry-minutia-376412
+      namespace: ${local.env.PROJECT_ID}
     imagePullSecrets:
       - name: gcr-config
         namespace: default
