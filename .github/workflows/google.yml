@@ -24,7 +24,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: demo-preview-environments    # TODO: update to cluster name
   GKE_ZONE: europe-north1-a   # TODO: update to cluster zone
-  PR_NUMBER: ${{ github.event.number }}
+  PR_NUMBER: pr-${{ github.event.number }}
 
 jobs:
   deploy-preview-environment:
@@ -67,8 +67,8 @@ jobs:
     - name: Deploy
       run: |-
         cd ./demo-project-start
-        echo $INGRESS_IP
-        echo $PR_NUMBER
+        echo ${{ env.$INGRESS_IP }}
+        echo ${{ env. $PR_NUMBER }}
 
         garden --version
         garden --env=preview plugins kubernetes cluster-init
