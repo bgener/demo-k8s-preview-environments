@@ -67,7 +67,7 @@ jobs:
       run: |-
         garden --version
         cd ./demo-project-start
-        ls
+        echo $GITHUB_RUN_NUMBER
         cat project.garden.yml
 
         garden --env=preview plugins kubernetes cluster-init
