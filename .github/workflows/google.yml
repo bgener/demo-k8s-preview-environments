@@ -67,8 +67,8 @@ jobs:
     - name: Deploy
       run: |-
         cd ./demo-project-start
-        echo ${{ env.$INGRESS_IP }}
-        echo ${{ env. $PR_NUMBER }}
+        echo ${{ env.INGRESS_IP }}
+        echo ${{ env.PR_NUMBER }}
 
         garden --version
         garden --env=preview plugins kubernetes cluster-init
