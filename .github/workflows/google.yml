@@ -66,8 +66,10 @@ jobs:
     - name: Deploy
       run: |-
         garden --version
-
         cd ./demo-project-start
+        ls
+        cat project.garden.yml
+
         garden --env=preview plugins kubernetes cluster-init
         garden deploy
         garden get status
