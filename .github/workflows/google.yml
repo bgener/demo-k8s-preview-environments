@@ -24,6 +24,7 @@ env:
   PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: demo-preview-environments    # TODO: update to cluster name
   GKE_ZONE: europe-north1-a   # TODO: update to cluster zone
+  PR_NUMBER: ${{ github.event.number }}
 
 jobs:
   deploy-preview-environment:
@@ -61,6 +62,7 @@ jobs:
         export PATH=$PATH:$HOME/.garden/bin
         chmod u+x $HOME/.garden
         echo "PATH=$HOME/.garden/bin:$PATH" >> $GITHUB_ENV
+        echo "${{ vars.INGRESS_IP }}" >> $INGRESS_IP
 
     # Deploy the preview environment to the GKE cluster
     - name: Deploy

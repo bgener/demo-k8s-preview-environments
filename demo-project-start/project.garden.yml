@@ -2,7 +2,7 @@ kind: Project
 name: demo-project-start
 environments:
   - name: preview
-    defaultNamespace: '${local.username}-$GITHUB_HEAD_REF-preview'
+    defaultNamespace: '${local.username}-$PR_NUMBER-preview'
     variables:
       hostname: '${var.previewHostname}'
 providers:
@@ -19,4 +19,4 @@ providers:
       - name: gcr-config
         namespace: default
 variables:
-  previewHostname: $GITHUB_HEAD_REF.${{ vars.INGRESS_IP }}
+  previewHostname: '$PR_NUMBER.$INGRESS_IP'
