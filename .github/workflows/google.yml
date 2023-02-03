@@ -65,10 +65,8 @@ jobs:
     # Deploy the preview environment to the GKE cluster
     - name: Deploy
       run: |-
-        garden --version
         cd ./demo-project-start
-        echo $GITHUB_RUN_NUMBER
-        cat project.garden.yml
+        echo $GITHUB_EVENT_PATH
 
         garden --env=preview plugins kubernetes cluster-init
         garden deploy
