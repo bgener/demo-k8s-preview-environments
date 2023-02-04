@@ -44,13 +44,6 @@ jobs:
         cluster_name: ${{ env.GKE_CLUSTER }}
         location: ${{ env.GKE_ZONE }}
 
-    # Docker login
-    - uses: 'docker/login-action@v1'
-      with:
-        registry: 'eu.gcr.io'
-        username: 'oauth2accesstoken'
-        password: '${{ steps.auth.outputs.access_token }}'
-
     # Install Garden CLI tool
     - name: Set up Garden
       run: |-
