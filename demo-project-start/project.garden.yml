@@ -1,21 +1,22 @@
-J́kind: Project
+kind: Project
 name: demo-project-start
 environments:
   - name: preview
-    defaultNamespace: ${local.username}-$GITHUB_RUN_NUMBER-preview
+    defaultNamespace: '${local.env.USER}-${local.env.PR_NUMBER}-preview'
     variables:
-        hostname: ${var.previewHostname}
+      hostname: '${var.previewHostname}'
 providers:
   - name: kubernetes
-    context: gke_starry-minutia-376412_europe-north1-a_demo-preview-environments
-    environments: [preview]
-    namespace: ${environment.namespace}
-    defaultHostname: ${var.hostname}
+    context: gke_${local.env.PROJECT_ID}_${local.env.GKE_ZONE}_${local.env.GKE_CLUSTER}
+    environments:
+      - preview
+    namespace: '${environment.namespace}'
+    defaultHostname: '${var.hostname}'
     deploymentRegistry:
       hostname: eu.gcr.io
-      namespace: starry-minutia-376412   # <- set this to the project ID of the target cluster
+      namespace: ${local.env.PROJECT_ID}
     imagePullSecrets:
       - name: gcr-config
         namespace: default
 variables:
-   previewHostname: $GITHUB_RUN_NUMBER.${local.env.INGRESS_IP}
+  previewHostname: '${local.env.PR_NUMBER}.${local.env.INGRESS_IP}'
