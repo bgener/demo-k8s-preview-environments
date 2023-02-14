@@ -3,20 +3,15 @@ name: demo-project-start
 environments:
   - name: preview
     defaultNamespace: '${local.env.USER}-${local.env.PR_NUMBER}-preview'
-    variables:
-      hostname: '${var.previewHostname}'
 providers:
   - name: kubernetes
     context: gke_${local.env.PROJECT_ID}_${local.env.GKE_ZONE}_${local.env.GKE_CLUSTER}
     environments:
       - preview
     namespace: '${environment.namespace}'
-    defaultHostname: '${var.hostname}'
     deploymentRegistry:
       hostname: eu.gcr.io
       namespace: ${local.env.PROJECT_ID}
     imagePullSecrets:
       - name: gcr-config
         namespace: default
-variables:
-  previewHostname: '${local.env.PR_NUMBER}.${local.env.INGRESS_IP}'
