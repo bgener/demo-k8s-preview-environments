@@ -9,6 +9,7 @@ on:
       - closed # destroy preview environment
 
 env:
+  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: demo-preview-environments 
   GKE_ZONE: europe-north1-a
   GKE_SERVICE_ACCOUNT: sa-deploy@starry-minutia-376412.iam.gserviceaccount.com
