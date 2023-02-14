@@ -9,11 +9,11 @@ on:
       - closed # destroy preview environment
 
 env:
-  PROJECT_ID: ${{ secrets.GKE_PROJECT }}
   GKE_CLUSTER: demo-preview-environments 
   GKE_ZONE: europe-north1-a
-  PR_NUMBER: pr-${{ github.event.number }}
-  INGRESS_IP: ${{ secrets.INGRESS_IP }}
+  GKE_SERVICE_ACCOUNT: sa-deploy@starry-minutia-376412.iam.gserviceaccount.com
+  GKE_IDENTITY_PROVIDER: projects/793381027767/locations/global/workloadIdentityPools/my-pool/providers/my-provider
+  PR_NUMBER: pr-${{ github.event.number }} #used by Garden to configure Kubernetes namespace for a preview environment
 
 jobs:
   deploy-preview-environment:
@@ -34,8 +34,8 @@ jobs:
       uses: 'google-github-actions/auth@v0'
       with:
         token_format: 'access_token'
-        workload_identity_provider: 'projects/793381027767/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
-        service_account: 'sa-deploy@starry-minutia-376412.iam.gserviceaccount.com'
+        workload_identity_provider: ${{ env.GKE_IDENTITY_PROVIDER}}
+        service_account: ${{ env.GKE_SERVICE_ACCOUNT }}
 
     # Get the GKE credentials so we can deploy to the cluster
     - name: Set up GKE credentials
