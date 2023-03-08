@@ -1,6 +1,6 @@
 kind: Module
 type: container
-name: backend
+name: backend2
 dockerfile: Dockerfile
 
 services:
