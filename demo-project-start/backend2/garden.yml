@@ -1,0 +1,11 @@
+kind: Module
+type: container
+name: backend
+dockerfile: Dockerfile
+
+services:
+  - name: backend2
+    ports:
+      - name: http
+        containerPort: 8080
+        servicePort: 80
